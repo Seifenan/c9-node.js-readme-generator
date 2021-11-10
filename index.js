@@ -1,12 +1,40 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
+
 
 // TODO: Create an array of questions for user input
 const questions = [
   {
     type: 'input',
-    name: 'Title',
+    name: 'username',
+    message: 'What is your GitHub username?',
+    validate: usernameInput => {
+      if (usernameInput) {
+        return true;
+      } else {
+        console.log('Please enter a valid username!');
+        return false;
+      }
+    }
+  },
+  {
+    type: 'input',
+    name: 'questions',
+    message: 'Provide an email for others to reach you with questions.',
+    validate: questionsInput => {
+      if (questionsInput) {
+        return true;
+      } else {
+        console.log('Please enter a valid email address!');
+        return false;
+      }
+    }
+  },
+  {
+    type: 'input',
+    name: 'title',
     message: 'What is the title of this project?',
     validate: titleInput => {
       if (titleInput) {
@@ -19,7 +47,7 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'Description',
+    name: 'description',
     message: 'Provide a brief description of this Project or Application.',
     validate: descriptionInput => {
       if (descriptionInput) {
@@ -32,80 +60,54 @@ const questions = [
   },
   {
     type: 'checkbox',
-    name: 'Table of Contents',
+    name: 'contents',
     message: 'What sections would you like to include in this project?',
-    choices: [
+    choices: [ 
       {
         name: 'Deployed Application Link',
         checked: true
-      },
-      {
-        name: 'Description',
-        checked: true
-      },
-      {
-        name: 'Installation',
-        checked: false
-      },
-      {
-        name: 'Usage',
-        checked: false
-      },
-      {
-        name: 'License',
-        checked: false
-      },
-      {
-        name: 'Contributors',
-        checked: false
-      },
-      {
-        name: 'Tests',
-        checked: false
-      },
-      {
-        name: 'Questions',
-        checked: false
       },
       {
         name: 'GitHub Repository Link',
         checked: true
       },
       {
-        name: 'Screenshots',
+        name: 'description',
         checked: true
+      },
+      {
+        name: 'screenshots',
+        checked: true
+      },
+      {
+        name: 'license',
+        checked: true
+      },
+      {
+        name: 'contributors',
+        checked: true
+      },
+      {
+        name: 'questions',
+        checked: true
+      },
+      {
+        name: 'installation',
+        checked: false
+      },
+      {
+        name: 'usage',
+        checked: false
+      },
+      {
+        name: 'tests',
+        checked: false
       },
     ]
   },
   {
-    type: 'input',
-    name: 'Installation',
-    message: 'Provide step-by-step installation instructions for your Application.',
-    validate: installInput => {
-      if (installInput) {
-        return true;
-      } else {
-        console.log('Please enter your installation instructions to continue!');
-        return false;
-      }
-    }
-  },
-  {
-    type: 'input',
-    name: 'Usage',
-    message: 'Provide an example or instructions for using your Application.',
-    validate: usageInput => {
-      if (usageInput) {
-        return true;
-      } else {
-        console.log('Please enter your example or usage instructions to continue!');
-        return false;
-      }
-    }
-  },
-  {
-    type: 'List',
-    name: 'License',
+    type: 'list',
+    name: 'license',
     message: 'Which license(s) was used or will be used in this project?',
     choices: [
       'Apache 2.0', 
@@ -120,7 +122,33 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'Contributors',
+    name: 'installation',
+    message: 'Provide step-by-step installation instructions for your Application.',
+    validate: installInput => {
+      if (installInput) {
+        return true;
+      } else {
+        console.log('Please enter your installation instructions to continue!');
+        return false;
+      }
+    }
+  },
+  {
+    type: 'input',
+    name: 'usage',
+    message: 'Provide an example or instructions for using your Application.',
+    validate: usageInput => {
+      if (usageInput) {
+        return true;
+      } else {
+        console.log('Please enter your example or usage instructions to continue!');
+        return false;
+      }
+    }
+  },
+  {
+    type: 'input',
+    name: 'contributors',
     message: 'Who are the Contributors of this project?',
     validate: contribInput => {
       if (contribInput) {
@@ -133,7 +161,7 @@ const questions = [
   },
   {
     type: 'input',
-    name: 'Tests',
+    name: 'tests',
     message: 'What are the instructions for testing this project?',
     validate: testingInput => {
       if (testingInput) {
@@ -144,63 +172,21 @@ const questions = [
       }
     }
   },
-  {
-    type: 'input',
-    name: 'Questions',
-    message: 'Provide an email for others to reach you with questions.',
-    validate: questionsInput => {
-      if (questionsInput) {
-        return true;
-      } else {
-        console.log('Please enter a valid email address!');
-        return false;
-      }
-    }
-  },
-  {
-    type: 'input',
-    name: 'Username',
-    message: 'What is your GitHub username?',
-    validate: usernameInput => {
-      if (usernameInput) {
-        return true;
-      } else {
-        console.log('Please enter a valid username!');
-        return false;
-      }
-    }
-  },
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) {
+  return fs.writeFileSync(path.join(process.cwd(), fileName), data);
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
+  inquirer.prompt(questions)
+  .then(userResponses => {
+    console.log('Generating README...');
+    writeToFile('README.md', generateMarkdown(userResponses));
+  });
+}
 
 // Function call to initialize app
 init();
-
-
-
-
-
-
-
-
-// const profileDataArgs = process.argv.slice(2, process.argv.length);
-// console.log(profileDataArgs);
-
-
-// var profileDataArgs = process.argv.slice(2, process.argv.length);
-// console.log(profileDataArgs);
-
-
-// var cmdlineArg = process.argv;
-// console.log(cmdlineArg);
-
-
-// var message = 'Hello Node!';
-// var sum = 5 + 3;
-// console.log(message);
-// console.log(sum);
