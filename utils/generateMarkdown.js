@@ -10,18 +10,30 @@ function renderLicenseLink(license) {}
 // If there is no license, return an empty string
 function renderLicenseSection(license) {}
 
+// ## License
+//   [![License](https://img.shields.io/badge/License-${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
-  ## Description  
+  [![License](https://img.shields.io/badge/License-${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
 
+  ## Description  
   ${data.description}
 
   ## Table of Contents (Optional)
-
+  * [description](#description)
+  * [installation](#installation)
+  * [usage](#usage)
+  * [username](#username)
+  * [questions](#questions)
+  * [credits](#credits)
+  * [licenses](#licenses)
+  * [badges](#badges)
+  * [contribution](#contribution)
+  * [test](#test)
+  
   ## Installation
-
   ${data.installation}
 
   ## Usage 
@@ -31,15 +43,11 @@ function generateMarkdown(data) {
   ${data.contributors}
 
   ## License
-  [![License](https://img.shields.io/badge/License-${data.license}-blue.svg)](https://opensource.org/licenses/${data.license})
-
-  ## Badges
-
   ${data.license}
 
   ## Contributing
-
   ${data.contributors}
+
   ## Tests
   ${data.tests}
 `;

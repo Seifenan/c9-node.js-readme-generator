@@ -112,14 +112,14 @@ const questions = [
     name: 'license',
     message: 'Which license(s) was used or will be used in this project?',
     choices: [
-      'Apache 2.0', 
-      'BSD 2', 
-      'BSD 3', 
+      'Apache_2.0', 
+      'BSD_2', 
+      'BSD_3', 
       'EPL', 
       'GNU', 
       'MIT', 
       'Mozilla', 
-      'No License'
+      'No_License'
     ]
   },
   {
