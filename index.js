@@ -2,6 +2,8 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const generateMarkdown = require('./utils/generateMarkdown');
+const path = require('path');
+
 
 
 // TODO: Create an array of questions for user input
@@ -15,19 +17,6 @@ const questions = [
         return true;
       } else {
         console.log('Please enter a valid username!');
-        return false;
-      }
-    }
-  },
-  {
-    type: 'input',
-    name: 'questions',
-    message: 'Provide an email for others to reach you with questions.',
-    validate: questionsInput => {
-      if (questionsInput) {
-        return true;
-      } else {
-        console.log('Please enter a valid email address!');
         return false;
       }
     }
@@ -48,6 +37,7 @@ const questions = [
   {
     type: 'input',
     name: 'description',
+    default: 'This basic app requires the user to install dependancies and will ask a series of questions to generate a readme file',
     message: 'Provide a brief description of this Project or Application.',
     validate: descriptionInput => {
       if (descriptionInput) {
@@ -59,70 +49,24 @@ const questions = [
     }
   },
   {
-    type: 'checkbox',
-    name: 'contents',
-    message: 'What sections would you like to include in this project?',
-    choices: [ 
-      {
-        name: 'Deployed Application Link',
-        checked: true
-      },
-      {
-        name: 'GitHub Repository Link',
-        checked: true
-      },
-      {
-        name: 'description',
-        checked: true
-      },
-      {
-        name: 'screenshots',
-        checked: true
-      },
-      {
-        name: 'license',
-        checked: true
-      },
-      {
-        name: 'contributors',
-        checked: true
-      },
-      {
-        name: 'questions',
-        checked: true
-      },
-      {
-        name: 'installation',
-        checked: false
-      },
-      {
-        name: 'usage',
-        checked: false
-      },
-      {
-        name: 'tests',
-        checked: false
-      },
-    ]
-  },
-  {
     type: 'list',
     name: 'license',
     message: 'Which license(s) was used or will be used in this project?',
     choices: [
-      'Apache 2.0', 
-      'BSD 2', 
-      'BSD 3', 
+      'Apache_2.0', 
+      'BSD_2', 
+      'BSD_3', 
       'EPL', 
       'GNU', 
       'MIT', 
       'Mozilla', 
-      'No License'
+      'No_License'
     ]
   },
   {
     type: 'input',
     name: 'installation',
+    default: 'Install using "npm i" command in your terminal',
     message: 'Provide step-by-step installation instructions for your Application.',
     validate: installInput => {
       if (installInput) {
@@ -136,6 +80,7 @@ const questions = [
   {
     type: 'input',
     name: 'usage',
+    default: 'User must "npm install" in the terminal to automatically install required dependencies and files. The user must run "node index.js" to trigger the set of questions that will generate the readme file',
     message: 'Provide an example or instructions for using your Application.',
     validate: usageInput => {
       if (usageInput) {
@@ -162,6 +107,7 @@ const questions = [
   {
     type: 'input',
     name: 'tests',
+    default: 'This is the Automated README test!',
     message: 'What are the instructions for testing this project?',
     validate: testingInput => {
       if (testingInput) {
@@ -172,9 +118,26 @@ const questions = [
       }
     }
   },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Provide an email for others to reach you with questions.',
+    validate: emailInput => {
+      if (emailInput) {
+        return true;
+      } else {
+        console.log('Please enter a valid email address!');
+        return false;
+      }
+    }
+  },
 ];
 
 // TODO: Create a function to write README file
+// function writeToFile(fileName, data) {
+//   fs.writeFile('README.md'
+// }
+
 function writeToFile(fileName, data) {
   return fs.writeFileSync(path.join(process.cwd(), fileName), data);
 }
