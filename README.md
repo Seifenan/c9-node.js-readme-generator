@@ -1,38 +1,42 @@
-# Title
-  [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache_2.0)
+
+  # Readme Generator  
+  ![License](https://img.shields.io/badge/License-No_License-blue.svg)
 
   ## Description  
-  description
+  This basic app requires the user to install dependancies and will ask a series of questions to generate a readme file
 
-  ## Table of Contents (Optional)
+  ## Table of Contents 
   * [description](#description)
   * [installation](#installation)
   * [usage](#usage)
   * [username](#username)
   * [questions](#questions)
   * [credits](#credits)
-  * [licenses](#licenses)
+  * [license](#license)
   * [badges](#badges)
   * [contribution](#contribution)
   * [test](#test)
   
   ## Installation
-  yes
+  Install using "npm i" command in your terminal
 
   ## Usage 
-  no
+  User must "npm install" in the terminal to automatically install required dependencies and files. The user must run "node index.js" to trigger the set of questions that will generate the readme file
 
   ## Credits
-  no
-
-  ## License
-  Apache_2.0
-
-  ## Badges
-  Apache_2.0
+  seifenan
 
   ## Contributing
-  no
+  Seif Enan
 
   ## Tests
-  no
+  This is the Automated README test!
+
+  ## Questions
+  To check out more of my projects, visit my repo [link](https://github.com/seifenan).
+  To reach me with more questions email me at seifenan@yahoo.com. 
+
+  ## License
+  ![License](https://img.shields.io/badge/License-No_License-blue.svg)
+  
+  https://opensource.org/licenses/unlicense/
