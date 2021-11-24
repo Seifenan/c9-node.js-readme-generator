@@ -32,6 +32,10 @@
 
   --- 
 
+  <img src="utils\images\prev2.png">
+
+  --- 
+
   ## Installation
   Install using "npm i" command in your terminal
 
